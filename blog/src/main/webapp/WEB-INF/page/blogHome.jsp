@@ -12,6 +12,6 @@
 
 </head>
 <body>
-<div>${user_name}</div>---<div>${user_password}</div>
+<div></div>---<div></div>
 </body>
 </html>
