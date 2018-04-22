@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>blogHome</servlet-name>
-        <servlet-class>com.java.blog.servlet.BlogHome</servlet-class>
+        <servlet-class>com.java.blog.servlet.BlogHomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>blogHome</servlet-name>
@@ -16,7 +16,7 @@
     <!--菜单栏-->
     <servlet>
         <servlet-name>Menu</servlet-name>
-        <servlet-class>com.java.blog.servlet.Menu</servlet-class>
+        <servlet-class>com.java.blog.servlet.MenuServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Menu</servlet-name>
@@ -26,10 +26,14 @@
     <!--文章列表-->
     <servlet>
         <servlet-name>articleList</servlet-name>
-        <servlet-class>com.java.blog.servlet.ArticleList</servlet-class>
+        <servlet-class>com.java.blog.servlet.ArticleListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>articleList</servlet-name>
         <url-pattern>/articleList</url-pattern>
     </servlet-mapping>
+    
+    <welcome-file-list>
+        <welcome-file>blogHome</welcome-file>
+    </welcome-file-list>
 </web-app>

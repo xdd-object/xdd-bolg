@@ -1,9 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>首页</title>
     <link rel="stylesheet" href="../../assets/css/home.css">
     <link rel="stylesheet" href="../../assets/fonts/iconfont.css">
 </head>
@@ -114,5 +115,6 @@
         </div>
     </section>
 </body>
-
+<script src="../../assets/js/query-3.3.1.min.js"></script>
+<script src="../../assets/js/home.js"></script>
 </html>

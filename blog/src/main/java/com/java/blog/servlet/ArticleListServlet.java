@@ -23,6 +23,7 @@ public class ArticleListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("utf-8");
+        resp.setContentType("application/json;charset=UTF-8");
         //接受参数
         String bodyData = Request.getBodyData(req);
         Map<String, Object> map = JSONObject.parseObject(bodyData, Map.class);

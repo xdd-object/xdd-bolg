@@ -24,6 +24,7 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("utf-8");
+        resp.setContentType("application/json;charset=UTF-8");
         List<Map<String,Object>> menuList = menuService.getMenuList();
         req.setAttribute("menuList", menuList);
         String json = JSONObject.toJSONString(menuList);
