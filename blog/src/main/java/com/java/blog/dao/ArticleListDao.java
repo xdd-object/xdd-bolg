@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class ArticleListDao {
 
-    public List<Map<String,Object>> getArticleList(String currentPage, String pageCount) {
+    public List<Map<String,Object>> getArticleList(Integer currentPage, Integer pageCount) {
         String table = "article";
         //操作数据库
         List<Map<String,Object>> con = new ArrayList<Map<String,Object>>();

@@ -10,74 +10,42 @@
 </head>
 
 <body>
-    <section class="main">
+    <section ref="main" class="main" id="home">
         <div class="blog_left">
-            <article class="blog_article">
-                <div class="blog_title">
-                    <h1>标题</h1>
+            <div class="blog_left_in">
+                <article class="blog_article" v-for="(item, index) in articleJson">
+                    <div class="blog_title">
+                        <h1>{{item.name}}</h1>
+                    </div>
+                    <div class="blog_other_info">发表于
+                        <span>{{item.date_time}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;分类于
+                        <span>{{item.classify}}</span> &nbsp;&nbsp;|&nbsp;&nbsp; 阅读数
+                        <span>{{item.reading}}</span>次
+                    </div>
+                    <p class="blog_contetn">
+                        {{item.desc}}
+                    </p>
+                    <a href="#">
+                        <button class="blog_details">
+                            阅读全文>>
+                        </button>
+                    </a>
+                </article>
+            </div>
+            <div v-if="showLoading" class="adticle_loading">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
                 </div>
-                <div class="blog_other_info">发表于
-                    <span>2017-7-6</span>&nbsp;&nbsp;|&nbsp;&nbsp;分类于
-                    <span> 222</span> &nbsp;&nbsp;|&nbsp;&nbsp; 阅读数
-                    <span>2</span>次
-                </div>
-                <p class="blog_contetn">撒；代付款；爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨 德撒；代付款；爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德撒；代付款；爱上 对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德撒；代付款；爱上对方可阿斯兰的护
-                    发素框架的发送到罚款收到回复阿萨德撒；代付款； 爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德
-                </p>
-                <a href="#">
-                    <button class="blog_details">
-                        阅读全文>>
-                    </button>
-                </a>
-            </article>
-            <article class="blog_article">
-                <div class="blog_title">
-                    <h1>标题</h1>
-                </div>
-                <div class="blog_other_info">发表于
-                    <span>2017-7-6</span>&nbsp;&nbsp;|&nbsp;&nbsp;分类于
-                    <span> 222</span> &nbsp;&nbsp;|&nbsp;&nbsp; 阅读数
-                    <span>2</span>次
-                </div>
-                <p class="blog_contetn">撒；代付款；爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨 德撒；代付款；爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德撒；代付款；爱上 对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德撒；代付款；爱上对方可阿斯兰的护
-                    发素框架的发送到罚款收到回复阿萨德撒；代付款； 爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德
-                </p>
-                <a href="#">
-                    <button class="blog_details">
-                        阅读全文>>
-                    </button>
-                </a>
-            </article>
-            <article class="blog_article">
-                <div class="blog_title">
-                    <h1>标题</h1>
-                </div>
-                <div class="blog_other_info">发表于
-                    <span>2017-7-6</span>&nbsp;&nbsp;|&nbsp;&nbsp;分类于
-                    <span> 222</span> &nbsp;&nbsp;|&nbsp;&nbsp; 阅读数
-                    <span>2</span>次
-                </div>
-                <p class="blog_contetn">撒；代付款；爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨 德撒；代付款；爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德撒；代付款；爱上 对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德撒；代付款；爱上对方可阿斯兰的护
-                    发素框架的发送到罚款收到回复阿萨德撒；代付款； 爱上对方可阿斯兰的护发素框架的发送到罚款收到回复阿萨德
-                </p>
-                <a href="#">
-                    <button class="blog_details">
-                        阅读全文>>
-                    </button>
-                </a>
-            </article>
+            </div>
         </div>
-        <div class="blog_right">
+        <div class="blog_right" v-bind:style="{left: handleOffsetLeft + 'px'}">
             <div class="menu">
                 <div class="menu_img">
                     <div class="menu_img_font">
-
                         TYT'S Blog
                         <div>世界很大，我真的很想去看看</div> 
-                      
                     </div>
-            
-                        
                 </div>
                 <div></div>
                 <div class="menu_list">
@@ -115,6 +83,73 @@
         </div>
     </section>
 </body>
-<script src="../../assets/js/query-3.3.1.min.js"></script>
-<script src="../../assets/js/home.js"></script>
+<script src="../../assets/js/vue2.5.16.js"></script>
+<script src="../../assets/js/axios.js"></script>
+
+<script>
+    var homeVm = new Vue({
+        el: '#home',
+        data: {
+            data: {
+                currentPage: 0,
+                pageCount: 6
+            },
+            articleJson: [],
+            showLoading: false,
+            mainOffsetLeft: 0
+        },
+        methods: {
+            handleLoadArticlList: function() {
+                var _this = this
+                if (_this.data) {
+                    _this.showLoading = true
+                    axios.post('/articleList', this.data)
+                        .then(function (response) {
+                            _this.showLoading = false
+                            if (response.data.length > 0) {
+                                _this.articleJson  =  _this.articleJson.concat(response.data)
+                            }
+                        })
+                        .catch(function (error) {
+                            _this.showLoading = false
+                            console.log(error)
+                        })
+                }
+            },
+            lowEnough: function() {
+                var pageHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight)// 滚动内容的高度
+                var viewportHeight = window.innerHeight || // 窗口的高度
+                    document.documentElement.clientHeight ||
+                    document.body.clientHeight || 0
+                var scrollHeight = window.pageYOffset || // 滚动的距离
+                    document.documentElement.scrollTop ||
+                    document.body.scrollTop || 0
+                return pageHeight - viewportHeight - scrollHeight === 0
+            }
+        },
+        computed: {
+            handleOffsetLeft: function () {
+                return this.mainOffsetLeft
+            }
+        },
+        created: function () {
+            this.handleLoadArticlList()
+        },
+        mounted: function() {
+            this.mainOffsetLeft = this.$refs.main.offsetLeft + 710
+            var _this = this
+            window.addEventListener('scroll', function() {
+               console.log(_this.lowEnough())
+               if (_this.lowEnough()) {
+                   _this.data.currentPage ++
+                   _this.handleLoadArticlList()
+               }
+             }, false)
+            window.onresize = function(){
+                _this.mainOffsetLeft = _this.$refs.main.offsetLeft + 710
+            }
+        }
+    })
+
+</script>
 </html>
