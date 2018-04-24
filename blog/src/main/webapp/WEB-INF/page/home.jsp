@@ -92,7 +92,7 @@
         data: {
             data: {
                 currentPage: 0,
-                pageSize: 6
+                pageCount: 6
             },
             articleJson: [],
             showLoading: true,
