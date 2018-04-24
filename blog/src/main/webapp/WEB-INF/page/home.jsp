@@ -37,6 +37,7 @@
                     <div class="double-bounce1"></div>
                     <div class="double-bounce2"></div>
                 </div>
+                玩命加载中...
             </div>
         </div>
         <div class="blog_right" v-bind:style="{left: handleOffsetLeft + 'px'}">
@@ -79,7 +80,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 </body>
@@ -92,30 +92,32 @@
         data: {
             data: {
                 currentPage: 0,
-                pageCount: 6
+                pageSize: 6
             },
             articleJson: [],
-            showLoading: false,
-            mainOffsetLeft: 0
+            showLoading: true,
+            mainOffsetLeft: 0,
+            timer: null
         },
         methods: {
+            // 加载数据
             handleLoadArticlList: function() {
                 var _this = this
                 if (_this.data) {
-                    _this.showLoading = true
                     axios.post('/articleList', this.data)
                         .then(function (response) {
                             _this.showLoading = false
+                            clearTimeout( _this.timer)
                             if (response.data.length > 0) {
                                 _this.articleJson  =  _this.articleJson.concat(response.data)
                             }
                         })
                         .catch(function (error) {
                             _this.showLoading = false
-                            console.log(error)
                         })
                 }
             },
+            // 判断是否滚动到底部
             lowEnough: function() {
                 var pageHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight)// 滚动内容的高度
                 var viewportHeight = window.innerHeight || // 窗口的高度
@@ -128,23 +130,32 @@
             }
         },
         computed: {
+            // 计算div.main到窗口左边缘的left值
             handleOffsetLeft: function () {
                 return this.mainOffsetLeft
             }
         },
         created: function () {
-            this.handleLoadArticlList()
+            var _this = this
+            setTimeout(function () {
+                _this.handleLoadArticlList()
+            },3000)
         },
         mounted: function() {
             this.mainOffsetLeft = this.$refs.main.offsetLeft + 710
             var _this = this
+            _this.timer = null
+            // 监听滚动条事件
             window.addEventListener('scroll', function() {
-               console.log(_this.lowEnough())
                if (_this.lowEnough()) {
-                   _this.data.currentPage ++
-                   _this.handleLoadArticlList()
+                   _this.showLoading = true
+                   _this.timer = setTimeout(function () {
+                       _this.data.currentPage ++
+                       _this.handleLoadArticlList()
+                   },3000)
                }
              }, false)
+            // 监听窗口变化事件
             window.onresize = function(){
                 _this.mainOffsetLeft = _this.$refs.main.offsetLeft + 710
             }
