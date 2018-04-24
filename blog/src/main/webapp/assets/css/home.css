@@ -63,9 +63,12 @@ body{
     border:2px solid #999;
     border-radius: 5px;
     cursor:pointer;
+    transition: all .6s;
 }
 .blog_details:hover{
-    background:sandybrown;
+    background:black;
+    color: #ffffff;
+    border: 1px solid #000000;
 }
 .menu_img{
     background: black;
@@ -126,14 +129,15 @@ li:hover{
     font-size: 14px;
 }
 .adticle_loading {
-    /*background: #fff;*/
     text-align: center;
-    margin-top: 10px;
+    padding: 10px 0;
+    text-align: center;
+    color: #666;
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 
     position: relative;
     margin: 0 auto;

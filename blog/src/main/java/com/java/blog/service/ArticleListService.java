@@ -11,10 +11,8 @@ public class ArticleListService {
 
     public List<Map<String,Object>> getArticleList(String currentPage, String pageCount) {
 
-        String strCurrentPage = currentPage;
-        String strPageCount = pageCount;
-        int intCurrentPage = Integer.parseInt(strCurrentPage);
-        int intPageCount = Integer.parseInt(strPageCount);
+        int intCurrentPage = Integer.parseInt(currentPage);
+        int intPageCount = Integer.parseInt(pageCount);
 
         List<Map<String,Object>> json = articleList.getArticleList(intCurrentPage*intPageCount, intPageCount);
         return json;
