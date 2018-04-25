@@ -8,7 +8,7 @@ public class BlogHomeDao {
 
         //操作数据库
         String[] con = new String[2];
-        try {
+       /* try {
             JDBCCon jdbcCon = new JDBCCon("SELECT * FROM user;");
             ResultSet resultSet = jdbcCon.pst.executeQuery();
             while (resultSet.next()) {
@@ -18,7 +18,7 @@ public class BlogHomeDao {
             jdbcCon.close();
         }catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         return con;
     }
 }

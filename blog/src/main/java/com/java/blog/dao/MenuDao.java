@@ -14,8 +14,8 @@ public class MenuDao {
         //操作数据库
         List<Map<String,Object>> con = new ArrayList<Map<String,Object>>();
 
-        try {
-            JDBCCon jdbcCon = new JDBCCon("SELECT * FROM menu;");
+       /* try {
+            conn = JDBCCon.getConnection();
             ResultSet resultSet = jdbcCon.pst.executeQuery();
 
             Map<String,Object> map;
@@ -28,7 +28,7 @@ public class MenuDao {
             jdbcCon.close();
         }catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         return con;
     }
 }
