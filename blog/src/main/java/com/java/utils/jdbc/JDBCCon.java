@@ -1,35 +1,40 @@
 package com.java.utils.jdbc;
 
-import java.sql.*;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Properties;
 
 public class JDBCCon {
-    private static final String URL="jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true&amp;characterEncoding=utf-8";
-    private static final String USER="root";
-    private static final String PASSWORD="";
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static String JDBC_DRIVER;
+    private static String DB_URL;
+    private static String USER;
+    private static String PASSWORD;
 
-    public Connection conn = null;
-    public PreparedStatement pst = null;
-
-    public JDBCCon(String sql) {
+    static {
+        Properties props = new Properties();
+        String filePath = "E:\\xdd-bolg\\blog\\src\\main\\resources\\JDBCConfig.properties";
         try {
-            Class.forName(DRIVER);//指定连接类型
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);//获取连接
-            pst = conn.prepareStatement(sql);//准备执行语句
+            InputStream in = new BufferedInputStream(new FileInputStream(filePath));
+            props.load(in);
+            JDBC_DRIVER = props.getProperty("JDBC_DRIVER");
+            DB_URL = props.getProperty("DB_URL");
+            USER = props.getProperty("USER");
+            PASSWORD = props.getProperty("PASSWORD");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Connection getConnection() {
+        Connection conn = null;
+
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return conn;
     }
-
-    public void close() {
-        try {
-            this.conn.close();
-            this.pst.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
 }

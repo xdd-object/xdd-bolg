@@ -32,7 +32,7 @@ public class ArticleListServlet extends HttpServlet {
         String pageCount = map.get("pageCount").toString();
 
         //返回参数
-        List<Map<String,Object>> articleList = articleListService.getArticleList(currentPage, pageCount);
+        Map<String,Object> articleList = articleListService.getArticleList(currentPage, pageCount);
         req.setAttribute("articleList", articleList);
         String json = JSONObject.toJSONString(articleList);
 

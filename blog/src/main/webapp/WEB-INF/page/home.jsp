@@ -39,6 +39,9 @@
                 </div>
                 玩命加载中...
             </div>
+            <div v-if="isLast" class="last_div">
+                我是有底线的
+            </div>
         </div>
         <div class="blog_right" v-bind:style="{left: handleOffsetLeft + 'px'}">
             <div class="menu">
@@ -97,28 +100,30 @@
             articleJson: [],
             showLoading: true,
             mainOffsetLeft: 0,
-            timer: null
+            totalCount: 0,
+            isLast: false
         },
         methods: {
             // 加载数据
             handleLoadArticlList: function() {
                 var _this = this
                 if (_this.data) {
-                    axios.post('/articleList', this.data)
+                    _this.showLoading = true
+                    axios.post('/articleList', _this.data)
                         .then(function (response) {
                             _this.showLoading = false
-                            clearTimeout( _this.timer)
-                            if (response.data.length > 0) {
-                                _this.articleJson  =  _this.articleJson.concat(response.data)
+                            _this.totalCount = response.data.totalCount
+                            if (response.data.data.length > 0) {
+                                _this.articleJson = _this.articleJson.concat(response.data.data)
                             }
                         })
-                        .catch(function (error) {
+                        .catch(function () {
                             _this.showLoading = false
                         })
                 }
             },
             // 判断是否滚动到底部
-            lowEnough: function() {
+            isScrollBottom: function() {
                 var pageHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight)// 滚动内容的高度
                 var viewportHeight = window.innerHeight || // 窗口的高度
                     document.documentElement.clientHeight ||
@@ -136,25 +141,21 @@
             }
         },
         created: function () {
-            var _this = this
-            setTimeout(function () {
-                _this.handleLoadArticlList()
-            },3000)
+            this.handleLoadArticlList()
         },
         mounted: function() {
             this.mainOffsetLeft = this.$refs.main.offsetLeft + 710
             var _this = this
-            _this.timer = null
+
             // 监听滚动条事件
             window.addEventListener('scroll', function() {
-               if (_this.lowEnough()) {
-                   _this.showLoading = true
-                   _this.timer = setTimeout(function () {
-                       _this.data.currentPage ++
-                       _this.handleLoadArticlList()
-                   },3000)
+                _this.isLast =  _this.articleJson.length === _this.totalCount
+               if (_this.isScrollBottom() && !_this.isLast) {
+                   _this.data.currentPage ++
+                   _this.handleLoadArticlList()
                }
              }, false)
+
             // 监听窗口变化事件
             window.onresize = function(){
                 _this.mainOffsetLeft = _this.$refs.main.offsetLeft + 710
