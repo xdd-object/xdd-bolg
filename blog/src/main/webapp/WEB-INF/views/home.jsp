@@ -37,6 +37,8 @@
     </section>
 <%@include file="footer.jsp"%>
 <script>
+    NProgress.start();
+    NProgress.done();
     var homeVm = new Vue({
         el: '#home',
         data: {
