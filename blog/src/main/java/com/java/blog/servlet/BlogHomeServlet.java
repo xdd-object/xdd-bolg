@@ -17,7 +17,6 @@ public class BlogHomeServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        resp.setCharacterEncoding("utf-8");
         req.getRequestDispatcher("/WEB-INF/page/home.jsp").forward(req,resp);
         //返回结果
     }

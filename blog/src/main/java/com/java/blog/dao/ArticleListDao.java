@@ -3,11 +3,9 @@ package com.java.blog.dao;
 import com.java.utils.jdbc.JDBCCon;
 import com.java.utils.jdbc.DBUtils;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +68,7 @@ public class ArticleListDao {
                 rowCount = rs.getInt(1);
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
             DBUtils.close(rs, stmt, conn);
         }

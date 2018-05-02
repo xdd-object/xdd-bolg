@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.Map;
 
 public class ArticleListServlet extends HttpServlet {
@@ -22,8 +21,7 @@ public class ArticleListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("utf-8");
-        resp.setContentType("application/json;charset=UTF-8");
+
         //接受参数
         String bodyData = Request.getBodyData(req);
         Map<String, Object> map = JSONObject.parseObject(bodyData, Map.class);
