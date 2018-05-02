@@ -13,9 +13,9 @@ public class JDBCCon {
 
     static {
         Properties props = new Properties();
-        String filePath = "E:\\xdd-bolg\\blog\\src\\main\\resources\\JDBCConfig.properties";
+        String path = JDBCCon.class.getClassLoader().getResource("JDBCConfig.properties").getPath();
         try {
-            InputStream in = new BufferedInputStream(new FileInputStream(filePath));
+            InputStream in = new BufferedInputStream(new FileInputStream(path));
             props.load(in);
             JDBC_DRIVER = props.getProperty("JDBC_DRIVER");
             DB_URL = props.getProperty("DB_URL");

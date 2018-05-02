@@ -11,14 +11,6 @@ public class BlogHomeServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        this.doPost(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req,resp);
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/page/home.jsp").forward(req,resp);
-        //返回结果
-    }
-
 }

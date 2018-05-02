@@ -32,3 +32,8 @@ target
 *.iml
 target
 gen
+src/main/java/com/java/blog/dao/ArticleDetailsDao.java
+src/main/java/com/java/blog/service/ArticleDetailsService.java
+src/main/java/com/java/blog/servlet/ArticleDetailsServlet.java
+src/main/java/com/java/filters/
+src/main/webapp/WEB-INF/views/

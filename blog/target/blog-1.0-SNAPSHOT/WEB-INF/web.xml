@@ -15,16 +15,6 @@
         <url-pattern>/blogHome</url-pattern>
     </servlet-mapping>
 
-    <!--菜单栏-->
-    <servlet>
-        <servlet-name>Menu</servlet-name>
-        <servlet-class>com.java.blog.servlet.MenuServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Menu</servlet-name>
-        <url-pattern>/Menu</url-pattern>
-    </servlet-mapping>
-
     <!--文章列表-->
     <servlet>
         <servlet-name>articleList</servlet-name>
@@ -34,12 +24,20 @@
         <servlet-name>articleList</servlet-name>
         <url-pattern>/articleList</url-pattern>
     </servlet-mapping>
-
-
+    
+    <!-- 文章详情 -->
+    <servlet>
+        <servlet-name>articleDetails</servlet-name>
+        <servlet-class>com.java.blog.servlet.ArticleDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>articleDetails</servlet-name>
+        <url-pattern>/articleDetails</url-pattern>
+    </servlet-mapping>
     <!--过滤器-->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
-        <filter-class>com.java.blog.filters.CharacterEncodingFilter</filter-class>
+        <filter-class>com.java.filters.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>utf-8</param-value>
@@ -49,7 +47,9 @@
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
-        <!--<dispatcher>REQUEST</dispatcher>-->
+        <!--<dispatcher>REQUEST</d
+
+        ispatcher>-->
         <!--<dispatcher>FORWARD</dispatcher>-->
     </filter-mapping>
 </web-app>
