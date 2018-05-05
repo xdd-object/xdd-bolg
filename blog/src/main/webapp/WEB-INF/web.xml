@@ -34,6 +34,17 @@
         <servlet-name>articleDetails</servlet-name>
         <url-pattern>/articleDetails</url-pattern>
     </servlet-mapping>
+
+    <!-- 保存评论 -->
+    <servlet>
+        <servlet-name>saveComment</servlet-name>
+        <servlet-class>com.java.blog.servlet.CommentSaveServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>saveComment</servlet-name>
+        <url-pattern>/saveComment</url-pattern>
+    </servlet-mapping>
+
     <!--过滤器-->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -47,9 +58,5 @@
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
-        <!--<dispatcher>REQUEST</d
-
-        ispatcher>-->
-        <!--<dispatcher>FORWARD</dispatcher>-->
     </filter-mapping>
 </web-app>

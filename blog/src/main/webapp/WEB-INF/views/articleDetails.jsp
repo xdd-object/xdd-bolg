@@ -2,7 +2,7 @@
 <%@include file="header.jsp"%>
 <section ref="main" class="main" id="articleDetails">
     <div class="blog_left">
-        articleDetails
+        <%=request.getAttribute("jsonObject")%>
     </div>
     <%@ include file="blogRight.jsp" %>
 </section>
