@@ -1,6 +1,7 @@
 package com.java.blog.servlet;
 
 import com.alibaba.fastjson.JSONObject;
+import com.java.blog.bean.Users;
 import com.java.blog.service.UserService;
 import com.java.utils.requset.Request;
 
@@ -26,7 +27,7 @@ public class UserServlet extends HttpServlet {
 
         if ("login".equals(method)) {
             String username = map.get("username").toString();
-            String password = map.get("password").toString();;
+            String password = map.get("password").toString();
             if(username==null||"".equals(username.trim())||password==null||"".equals(password.trim())){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("status", 0);
@@ -34,26 +35,41 @@ public class UserServlet extends HttpServlet {
                 PrintWriter writer = resp.getWriter();
                 writer.write(String.valueOf(jsonObject));
             } else {
-                Boolean is = userService.login(username, password);
-                if (is) {
+                JSONObject jsonObject = userService.login(username, password);
+                Boolean isLogin = (Boolean)jsonObject.get("isLogin");
+                if (isLogin) {
                     req.getSession().setAttribute("userInfo", username);
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("status", 1);
-                    jsonObject.put("msg", "登录成功");
+                    JSONObject jsonObject1 = new JSONObject();
+                    jsonObject1.put("status", 1);
+                    jsonObject1.put("data", jsonObject.get("data"));
+                    jsonObject1.put("msg", "登录成功");
                     PrintWriter writer = resp.getWriter();
-                    writer.write(String.valueOf(jsonObject));
+                    writer.write(String.valueOf(jsonObject1));
                 } else {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("status", 0);
-                    jsonObject.put("msg", "用户名或密码有误有误");
+                    JSONObject jsonObject1 = new JSONObject();
+                    jsonObject1.put("status", 0);
+                    jsonObject1.put("msg", "用户名或密码有误有误");
                     PrintWriter writer = resp.getWriter();
-                    writer.write(String.valueOf(jsonObject));
+                    writer.write(String.valueOf(jsonObject1));
                 }
             }
         } else if ("logout".equals(method)) {
-
+            req.getSession().removeAttribute("userInfo");
         } else if ("register".equals(method)) {
-
+            String username = map.get("username").toString();
+            String password = map.get("password").toString();
+            Users users = new Users(username, password);
+            if(username==null||"".equals(username.trim())||password==null||"".equals(password.trim())){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("status", 0);
+                jsonObject.put("msg", "注册失败");
+                PrintWriter writer = resp.getWriter();
+                writer.write(String.valueOf(jsonObject));
+            } else {
+                JSONObject jsonObject = userService.registerService(users);
+                PrintWriter writer = resp.getWriter();
+                writer.write(String.valueOf(jsonObject));
+            }
         }
     }
 }
