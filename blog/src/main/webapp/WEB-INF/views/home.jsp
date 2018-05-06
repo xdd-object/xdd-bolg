@@ -1,6 +1,8 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header.jsp"%>
     <section ref="main" class="main" id="home">
+        用户名：<input type="text"><br>
+        密码：<input type="text"><br>
         <div class="blog_left">
             <div class="blog_left_in">
                 <article class="blog_article" v-for="(item, index) in articleJson">

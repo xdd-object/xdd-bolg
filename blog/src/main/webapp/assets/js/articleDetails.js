@@ -26,6 +26,7 @@ $(function(){
 
     $(".send").click(function () {
 
+
         layer.alert('内容', {
             icon: 1,
             skin: 'layer-ext-moon'
