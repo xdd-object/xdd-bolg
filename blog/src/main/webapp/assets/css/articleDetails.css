@@ -1,0 +1,88 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+.comment_content{
+    padding: 10px;
+    background: white;
+}
+
+.second_comment {
+    /* margin-left: 30px; */
+    margin-top: 10px;
+}
+.img_comment {
+    width: 30px;
+    border-radius:50%;
+}
+.first_comment{
+    display: flex;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+.user_logo_details{
+    vertical-align: top;
+    display:inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+.comment_info{
+    display:inline-block;
+    flex: 1;
+}
+.comment_color {
+    color: #157c8c;
+    cursor: pointer;
+}
+p{
+    word-break: break-all;
+}
+.comment_time span{
+    display: none;
+    cursor: pointer;
+}
+.new_comment{
+    width: 100%;
+    height: 70px;
+    border:1px solid #7e8a8c;
+    box-sizing: border-box;
+}
+.new_comment .new_comment_1{
+    float: left;
+    background: none;
+    border: none;
+    color: #ccc;
+}
+.new_comment .new_comment_2{
+    float: left;
+    height: 50px;
+    width: 100%;
+    outline: none;
+}
+.send {
+    width: 70px;
+    height: 30px;
+    background: #157c8c;
+    border:1px solid #157c8c;
+    color: white;
+}
+.send_div {
+    float: right;
+}
+.div_comment{
+    display: none;
+}
+.div_comment1{
+    width: 100%;
+    display: none;
+}
+.div_comment2{
+    margin-top: 10px;
+}
+.div_comment2 textarea {
+    outline: none;
+}
+
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
+.clearfloat{zoom:1} 
