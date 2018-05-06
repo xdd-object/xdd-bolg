@@ -25,12 +25,12 @@ public class UserService {
         if (is) {
             jsonObject.put("name", users.getName());
             jsonObject.put("status", 0);
-            jsonObject.put("data", "用户名已存在");
+            jsonObject.put("msg", "用户名已存在");
         } else {
             Boolean isValid = userDao.register(users);
             jsonObject.put("name", users.getName());
             jsonObject.put("status", 1);
-            jsonObject.put("data", "注册成功");
+            jsonObject.put("msg", "注册成功");
         }
 
         return jsonObject;
