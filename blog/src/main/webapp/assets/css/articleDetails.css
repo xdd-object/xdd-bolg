@@ -83,6 +83,17 @@ p{
 .div_comment2 textarea {
     outline: none;
 }
+#layui-form-user{
+    /*margin-top: 50px;*/
+
+    /*box-sizing: border-box;*/
+}
+
+.layui-tab-item{
+    padding-right: 30px;
+}
 
 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
-.clearfloat{zoom:1} 
+.clearfloat{zoom:1}
+
+

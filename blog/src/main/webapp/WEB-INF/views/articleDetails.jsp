@@ -81,6 +81,46 @@
                 </div>
             </div>
 
+        <%--<div id="layui-form-user" style="display: none">--%>
+            <%--<div class="layui-form-item">--%>
+                <%--<label class="layui-form-label">用户名：</label>--%>
+                <%--<div class="layui-input-block">--%>
+                    <%--<input type="text" id="username" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="layui-form-item">--%>
+                <%--<label class="layui-form-label">密码：</label>--%>
+                <%--<div class="layui-input-block">--%>
+                    <%--<input type="text" id="password" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+
+            <div id="layui-form-user" class="layui-tab layui-tab-card">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">登录</li>
+                    <li>注册</li>
+                </ul>
+                <div class="layui-tab-content" style="height: 100px;">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名：</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="username" name="username" required lay-verify="required"
+                                       placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">密码：</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="password" name="password" required lay-verify="required"
+                                       placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
     </div>
     <%@ include file="blogRight.jsp" %>
@@ -90,7 +130,7 @@
 <script>
     $(function(){
         layui.use('layer');
-
+        layui.use('element');
         $(".comment_color").click(function(){
             alert("显示用户信息");
         });
@@ -117,50 +157,103 @@
         });
 
         $(".send").click(function () {
+            var send = $(this).parent().siblings(".new_comment").find(".new_comment_2").text();
+            if (!send) {
+                console.log("评价内容为空");
+                layer.msg("评价内容为空");
+                return;
+            }
 
+            var userInfo = '${sessionScope.userInfo}';
             //在这里面输入任何合法的js语句
-            layer.open({
-                type: 1 //Page层类型
-                ,area: ['500px', '300px']
-                ,title: '你好，layer。'
-                ,shade: 0.6 //遮罩透明度
-                ,anim: 1 //0-6的动画形式，-1不开启
-                ,content: '<div style="padding:50px;">这是一个非常普通的页面层，传入了自定义的html</div>'
-            });
+            if (!userInfo) {
+                layer.open({
+                    type: 1 //Page层类型
+                    , area: ['500px', '300px']
+                    , title: false
+                    , shade: 0.6 //遮罩透明度
+                    , anim: 1 //0-6的动画形式，-1不开启
+                    , content: $('#layui-form-user')
+                    , btn: ['登录/注册', '取消']
+                    , yes: function (index, layero) {
+                        console.log("登录")
+                        var username = $("#username").val();
+                        var password = $("#password").val();
 
-            // var fromId = $(this).parent().data("fromid");
-            // var parentId = $(this).parent().data("parentid");
-            // var toId = $(this).parent().data("toid");
-            // var articleId = $(this).parent().data("articleid");
-            // var send = $(this).parent().siblings(".new_comment").find(".new_comment_2").text();
-            //
-            // var data = {
-            //     "from_id": fromId,
-            //     "parent_id": parentId,
-            //     "to_id": toId,
-            //     "article_id": articleId,
-            //     "content": send
-            // };
-            //
-            // console.log(fromId)
-            // console.log(parentId)
-            // console.log(toId)
-            // console.log(send)
-            // console.log(articleId)
-            //
-            // $.ajax({
-            //     type: 'post',
-            //     url: '/saveComment',
-            //     data: JSON.stringify(data),
-            //     success: function(res) {
-            //         console.log(res)
-            //         document.location.reload();
-            //     },
-            //     error: function (err) {
-            //         console.log(err)
-            //         document.location.reload();
-            //     }
-            // });
+                        var type = $(".layui-this").html();
+                        var method = type == "登录" ? "login" : "register";
+
+                        console.log(type);
+                        console.log(username);
+                        console.log(password);
+                        var data = {
+                            "username": username,
+                            "method": method,
+                            "password": password
+                        };
+                        //layer.closeAll();
+
+                        $.ajax({
+                            type: 'post',
+                            url: '/user',
+                            data: JSON.stringify(data),
+                            success: function (res) {
+                                if (res && res.status == 1) {
+                                    console.log("登录成功")
+                                    layer.closeAll();
+                                } else {
+                                    console.log("登录失败")
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                                return;
+                            }
+                        });
+                    }, btn2: function (index, layero) {
+                        console.log("取消")
+                    }
+
+                });
+            } else {
+
+
+                console.log(userInfo)
+
+                var fromId = $(this).parent().data("fromid");
+                var parentId = $(this).parent().data("parentid");
+                var toId = $(this).parent().data("toid");
+                var articleId = $(this).parent().data("articleid");
+
+
+                var data = {
+                    "from_id": fromId,
+                    "parent_id": parentId,
+                    "to_id": toId,
+                    "article_id": articleId,
+                    "content": send
+                };
+
+                console.log(fromId)
+                console.log(parentId)
+                console.log(toId)
+                console.log(send)
+                console.log(articleId)
+
+                $.ajax({
+                    type: 'post',
+                    url: '/saveComment',
+                    data: JSON.stringify(data),
+                    success: function (res) {
+                        console.log(res)
+                        document.location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err)
+                        document.location.reload();
+                    }
+                });
+            }
         });
 
 
