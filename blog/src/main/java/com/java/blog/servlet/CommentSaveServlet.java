@@ -10,8 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class CommentSaveServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doPost(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //接受参数
@@ -20,5 +26,8 @@ public class CommentSaveServlet extends HttpServlet {
 
         CommentSaveService commentSaveService = new CommentSaveService();
         commentSaveService.saveComment(comments);
+        PrintWriter writer = resp.getWriter();
+        writer.write("SUCCESS");
+        writer.close();
     }
 }

@@ -7,8 +7,35 @@ public class Comments {
   private Date date_time;
   private Long user_id;
   private Long parent_id;
+  private Long from_id;
+  private Long to_id;
+  private Long article_id;
 
-    public Comments() {}
+  public Long getFrom_id() {
+    return from_id;
+  }
+
+  public void setFrom_id(Long from_id) {
+    this.from_id = from_id;
+  }
+
+  public Long getTo_id() {
+    return to_id;
+  }
+
+  public void setTo_id(Long to_id) {
+    this.to_id = to_id;
+  }
+
+  public Long getArticle_id() {
+    return article_id;
+  }
+
+  public void setArticle_id(Long article_id) {
+    this.article_id = article_id;
+  }
+
+  public Comments() {}
 
     public Comments(String content, Date date_time, Long user_id, Long parent_id) {
     this.content = content;
