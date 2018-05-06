@@ -202,6 +202,7 @@
                                     console.log("登录成功")
                                     layer.closeAll();
                                 } else {
+                                    layer.msg(res.msg);
                                     console.log("登录失败")
                                 }
                             },

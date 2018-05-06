@@ -84,6 +84,7 @@ p{
     outline: none;
 }
 #layui-form-user{
+    display: none;
     /*margin-top: 50px;*/
 
     /*box-sizing: border-box;*/
