@@ -35,6 +35,16 @@
         <url-pattern>/articleDetails</url-pattern>
     </servlet-mapping>
 
+    <!-- 登录、注册 -->
+    <servlet>
+        <servlet-name>user</servlet-name>
+        <servlet-class>com.java.blog.servlet.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>user</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+
     <!-- 保存评论 -->
     <servlet>
         <servlet-name>saveComment</servlet-name>
