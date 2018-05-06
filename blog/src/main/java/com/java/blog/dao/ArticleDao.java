@@ -1,5 +1,6 @@
 package com.java.blog.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import com.java.utils.jdbc.JDBCCon;
 import com.java.utils.jdbc.DBUtils;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ArticleListDao {
+public class ArticleDao {
 
     public List<Map<String,Object>> getArticleList(Integer currentPage, Integer pageCount) {
         Connection conn = null;
@@ -39,18 +40,44 @@ public class ArticleListDao {
                 map.put("desc",rs.getObject("desc"));
                 list.add(map);
             };
-
         }catch (Exception e) {
             e.printStackTrace();
-//            try {
-//                conn.rollback();
-//            } catch (SQLException e1) {
-//                e1.printStackTrace();
-//            }
         } finally {
             DBUtils.close(rs, stmt, conn);
         }
         return list;
+    }
+
+    public JSONObject articleDetail(String id) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        JSONObject jsonobj = new JSONObject();
+
+        try {
+            conn = JDBCCon.getConnection();
+            String ListSQL = "SELECT * FROM article WHERE id=" + id;
+            stmt = conn.prepareStatement(ListSQL);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                jsonobj.put("id", rs.getInt("id"));
+                jsonobj.put("name", rs.getString("name"));
+                jsonobj.put("date_time", rs.getDate("date_time"));
+                jsonobj.put("classify", rs.getString("classify"));
+                jsonobj.put("reading", rs.getInt("reading"));
+                jsonobj.put("desc", rs.getString("desc"));
+                jsonobj.put("content", rs.getString("content"));
+                jsonobj.put("comment_id", rs.getInt("comment_id"));
+                jsonobj.put("author", rs.getString("author"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(rs, stmt, conn);
+        }
+
+        return jsonobj;
     }
 
     public int getTableCount() {

@@ -2,7 +2,7 @@ package com.java.blog.servlet;
 
 import com.alibaba.fastjson.JSONObject;
 import com.java.blog.bean.Comments;
-import com.java.blog.service.CommentSaveService;
+import com.java.blog.service.CommentService;
 import com.java.utils.requset.Request;
 
 import javax.servlet.ServletException;
@@ -24,8 +24,8 @@ public class CommentSaveServlet extends HttpServlet {
         String bodyData = Request.getBodyData(req);
         Comments comments = JSONObject.parseObject(bodyData, Comments.class);
 
-        CommentSaveService commentSaveService = new CommentSaveService();
-        commentSaveService.saveComment(comments);
+        CommentService commentService = new CommentService();
+        commentService.saveComment(comments);
         PrintWriter writer = resp.getWriter();
         writer.write("SUCCESS");
         writer.close();

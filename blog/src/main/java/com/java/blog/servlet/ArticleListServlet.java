@@ -1,7 +1,7 @@
 package com.java.blog.servlet;
 
 import com.alibaba.fastjson.JSONObject;
-import com.java.blog.service.ArticleListService;
+import com.java.blog.service.ArticleService;
 import com.java.utils.requset.Request;
 
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 public class ArticleListServlet extends HttpServlet {
-    ArticleListService articleListService = new ArticleListService();
+    ArticleService articleService = new ArticleService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
@@ -30,7 +30,7 @@ public class ArticleListServlet extends HttpServlet {
         String pageCount = map.get("pageCount").toString();
 
         //返回参数
-        Map<String,Object> articleList = articleListService.getArticleList(currentPage, pageCount);
+        Map<String,Object> articleList = articleService.getArticleList(currentPage, pageCount);
         req.setAttribute("articleList", articleList);
         String json = JSONObject.toJSONString(articleList);
 

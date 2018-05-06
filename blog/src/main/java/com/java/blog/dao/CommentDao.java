@@ -15,6 +15,10 @@ import java.util.Map;
 
 public class CommentDao {
 
+    /**
+     * 保存评论
+     * @param comments
+     */
     public void saveComment(Comments comments) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -41,6 +45,11 @@ public class CommentDao {
 
     }
 
+    /**
+     * 评论信息查询
+     * @param id
+     * @return
+     */
     public List<Map<String, Object>> listByArticleId(String id) {
         Connection conn = null;
         PreparedStatement stmt = null;
