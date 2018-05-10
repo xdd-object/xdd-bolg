@@ -28,9 +28,9 @@ public class UserServlet extends HttpServlet {
         Object password = map.get("password");
 
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status", 0);
         if ("login".equals(method)) {
             if(username==null||"".equals(username.toString().trim())||password==null||"".equals(password.toString().trim())){
-                jsonObject.put("status", 0);
                 jsonObject.put("msg", "登录失败");
             } else {
                 JSONObject res = userService.login(username.toString(), password.toString());
@@ -41,7 +41,6 @@ public class UserServlet extends HttpServlet {
                     jsonObject.put("data", res.get("data"));
                     jsonObject.put("msg", "登录成功");
                 } else {
-                    jsonObject.put("status", 0);
                     jsonObject.put("msg", "用户名或密码有误有误");
                 }
             }
@@ -49,7 +48,6 @@ public class UserServlet extends HttpServlet {
             req.getSession().removeAttribute("userInfo");
         } else if ("register".equals(method)) {
             if(username==null||"".equals(username.toString().trim())||password==null||"".equals(password.toString().trim())){
-                jsonObject.put("status", 0);
                 jsonObject.put("msg", "注册失败");
             } else {
                 Users users = new Users(username.toString(), password.toString());
@@ -57,7 +55,7 @@ public class UserServlet extends HttpServlet {
             }
         }
         PrintWriter writer = resp.getWriter();
-        writer.write(String.valueOf(jsonObject));
+        writer.write(jsonObject.toJSONString());
         writer.close();
     }
 }
