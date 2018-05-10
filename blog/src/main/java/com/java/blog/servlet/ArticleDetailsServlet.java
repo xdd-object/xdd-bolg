@@ -16,7 +16,7 @@ public class ArticleDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        if (id == null) {
+        if (id == null || "".equals(id.trim())) {
             req.getRequestDispatcher("/WEB-INF/views/404.jsp").forward(req, resp);
         } else {
             JSONObject jsonObject =  articleService.articleDetail(id);
