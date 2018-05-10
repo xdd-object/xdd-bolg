@@ -96,6 +96,16 @@
             data: {  //实例所有属性 (或者理解成数据存放位置)
                 name: 'username'
             },
+            methods: { //实例所有的方法
+                doSome: function () {
+                    console.log("实例的方法");
+                }
+            },
+            watch: { //对象监听方法
+                'name': function (newVal, oldVal) {
+                    console.log(newVal + "====" + oldVal)
+                }
+            },
             beforeCreate: function () {
                 console.log("Vue 实例在被创建之前");
             },
@@ -108,13 +118,13 @@
             }
         });
         /*
-        v-on 缩写 (示例：点击事件)
+        v-on 绑定事件 (示例：点击事件)
             <a v-on:click="doSomething">...</a><!-- 完整语法 -->
             <a @click="doSomething">...</a><!-- 缩写 -->
         v-bind 缩写
             <a v-bind:href="url">...</a>
             <a :href="url">...</a>
-        v-for 使用
+        v-for 循环渲染
             <select v-model="selected"> options是循环数组，option每个数组的一个元素，option.value取得值
               <option v-for="option in options" v-bind:value="option.value">
                 {{ option.text }}
@@ -122,7 +132,7 @@
             </select>
         v-model 值绑定
             <input type="radio" v-model="picked" value="a">
-
+        v-if 控制显示
         */
     </script>
 </html>
