@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            border: 1px solid #000;
+            margin:5px;
+        }
+
+        .relative1 {
+            position: relative;
+        }
+
+        .relative2 {
+            position: relative;
+            top: -20px;
+            left: 20px;
+            background-color: white;
+            width: 500px;
+        }
+
+        .fixed1 {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 100px;
+            background-color: white;
+        }
+
+        .relative {
+            position: relative;
+            width: 600px;
+            height: 400px;
+        }
+        .absolute {
+            position: absolute;
+            top: 120px;
+            right: 0;
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<h1><a href="http://zh.learnlayout.com/position.html"> http://zh.learnlayout.com/position.html</a></h1>
+position: relative;
+<div>
+    <div class="relative1">
+        relative1
+    </div>
+    <div class="relative2">
+        relative2(相对定位) 生成相对定位的元素，相对于其正常位置进行定位。
+    </div>
+</div>
+<hr>
+    <div class="fixed1">
+        position: fixed(相对屏幕定位)生成绝对定位的元素，相对于浏览器窗口进行定位。
+    </div>
+position: absolute;
+    <div class="relative">
+        relative
+        <div class="absolute">
+            absolute(绝对定位)<br>
+            生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。
+        </div>
+    </div>
+
+
+</body>
+</html>
